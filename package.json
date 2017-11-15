@@ -1,0 +1,36 @@
+{
+  "name": "scope-analyzer",
+  "description": "simple scope analysis for javascript ASTs",
+  "version": "0.0.0",
+  "author": "Renée Kooi <renee@kooi.me>",
+  "bugs": {
+    "url": "https://github.com/goto-bus-stop/scope-analyzer/issues"
+  },
+  "dependencies": {
+    "estree-walk": "^2.2.0",
+    "get-assigned-identifiers": "^1.0.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3",
+    "tape": "^4.8.0"
+  },
+  "homepage": "https://github.com/goto-bus-stop/scope-analyzer",
+  "keywords": [
+    "analysis",
+    "ast",
+    "javascript",
+    "nodes",
+    "refactor",
+    "rename",
+    "scope"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/goto-bus-stop/scope-analyzer.git"
+  },
+  "scripts": {
+    "test": "standard && tape test/*.js"
+  }
+}
