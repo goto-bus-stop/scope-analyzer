@@ -47,8 +47,10 @@ function visitBinding (node) {
 
 function analyze (ast) {
   assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: analyze: ast must be an ast node')
-  walk(ast, exports.visitScope)
-  walk(ast, exports.visitBinding)
+  walk(ast, function (node) {
+    exports.visitScope(node)
+    exports.visitBinding(node)
+  })
   return ast
 }
 
