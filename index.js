@@ -10,7 +10,8 @@ var kScope = Symbol('scope')
 exports.createScope = createScope
 exports.visitScope = visitScope
 exports.visitBinding = visitBinding
-exports.analyze = analyze
+exports.crawl = crawl
+exports.analyze = crawl // old name
 exports.nearestScope = getNearestScope
 exports.scope = getScope
 exports.getBinding = getBinding
@@ -45,8 +46,8 @@ function visitBinding (node) {
   }
 }
 
-function analyze (ast) {
-  assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: analyze: ast must be an ast node')
+function crawl (ast) {
+  assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: crawl: ast must be an ast node')
   walk(ast, function (node) {
     exports.visitScope(node)
     exports.visitBinding(node)
