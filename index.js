@@ -111,6 +111,13 @@ function registerScopeBindings (node) {
       scope.define(new Binding(node.id.name, node.id))
     }
   }
+  if (node.type === 'ImportDeclaration') {
+    var scopeNode = getNearestScope(node, false)
+    var scope = createScope(scopeNode)
+    getAssignedIdentifiers(node).forEach(function (id) {
+      scope.define(new Binding(id.name, id))
+    })
+  }
 }
 
 // Get the scope that a declaration will be declared in
