@@ -1,6 +1,7 @@
 /* eslint-disable no-redeclare */
 var assert = require('assert')
 var getAssignedIdentifiers = require('get-assigned-identifiers')
+var isFunction = require('estree-is-function')
 var walk = require('estree-walk')
 var Binding = require('./binding')
 var Scope = require('./scope')
@@ -165,10 +166,6 @@ function registerReference (node) {
   if (scope && scope.has(node.name)) {
     scope.add(node.name, node)
   }
-}
-
-function isFunction (node) {
-  return node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression' || node.type === 'ArrowFunctionExpression'
 }
 
 function isObjectKey (node) {
