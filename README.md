@@ -50,7 +50,7 @@ binding.getReferences().forEach(function (reference) {
 
 ## API
 
-### `analyze(ast)`
+### `crawl(ast)`
 
 Walk the ast and analyze all scopes. This will immediately allow you to use the `get*` methods on any node in the tree.
 
