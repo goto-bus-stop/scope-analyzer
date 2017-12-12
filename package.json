@@ -12,6 +12,8 @@
     "get-assigned-identifiers": "^1.1.0"
   },
   "devDependencies": {
+    "acorn": "^5.2.1",
+    "estree-assign-parent": "^1.0.0",
     "standard": "^10.0.3",
     "tape": "^4.8.0"
   },
