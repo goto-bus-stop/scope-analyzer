@@ -30,7 +30,7 @@ npm install scope-analyzer
 ## Usage
 
 Note: AST nodes passed to `scope-analyzer` functions are expected to reference the parent node on a `node.parent` property.
-Nodes from [falafel](https://github.com/substack/node-falafel) or [transform-ast](https://github.com/goto-bus-stop/transform-ast) have a `.parent` property, but others may not, so make sure you've got that set up somehow.
+Nodes from [falafel](https://github.com/substack/node-falafel) or [transform-ast](https://github.com/goto-bus-stop/transform-ast) have a `.parent` property, but others may not. You can use [estree-assign-parent](https://github.com/goto-bus-stop/estree-assign-parent) to quickly assign a parent property to all nodes in an AST.
 
 ```js
 var scan = require('scope-analyzer')
