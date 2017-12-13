@@ -50,8 +50,8 @@ function visitBinding (node) {
 function crawl (ast) {
   assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: crawl: ast must be an ast node')
   walk(ast, function (node) {
-    exports.visitScope(node)
-    exports.visitBinding(node)
+    visitScope(node)
+    visitBinding(node)
   })
   return ast
 }
