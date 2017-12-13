@@ -4,8 +4,8 @@ simple scope analysis for javascript ASTs. tracks scopes and collects references
 
 Caveats and/or todos:
 
- - This code is extracted from [browser-pack-flat](https://github.com/goto-bus-stop/browser-pack-flat)—currently browser-pack-flat's test suite are the only tests for this module.
- - May be missing edge cases. Things like `label:`s are not considered at all, but ideally in the future they will!
+ - May be missing edge cases.
+ - Things like `label:`s are not considered at all, but ideally in the future they will!
 
 [![stability][stability-image]][stability-url]
 [![npm][npm-image]][npm-url]
