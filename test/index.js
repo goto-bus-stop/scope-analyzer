@@ -3,8 +3,8 @@ var assignParent = require('estree-assign-parent')
 var parse = require('acorn').parse
 var scan = require('../')
 
-function crawl (src) {
-  var ast = assignParent(parse(src))
+function crawl (src, opts) {
+  var ast = assignParent(parse(src, opts))
   scan.crawl(ast)
   return ast
 }
@@ -107,4 +107,24 @@ test('references', function (t) {
     }
     y(function (w) { return x + w })
   `, 'references were associated correctly')
+})
+
+test('do not count renamed imported identifiers as references', function (t) {
+  t.plan(2)
+
+  var src = `
+    var a = 0
+    a++
+    a++
+    import { a as b } from "b"
+    b()
+  `
+  var ast = crawl(src, { sourceType: 'module' })
+
+  var root = scan.scope(ast)
+
+  var a = root.getBinding('a')
+  var b = root.getBinding('b')
+  t.equal(a.getReferences().length, 3, 'should not have counted renamed `a` import as a reference')
+  t.equal(b.getReferences().length, 2, 'should have counted local name of renamed import')
 })
