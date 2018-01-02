@@ -1,10 +1,9 @@
 var test = require('tape')
-var assignParent = require('estree-assign-parent')
 var parse = require('acorn').parse
 var scan = require('../')
 
 function crawl (src, opts) {
-  var ast = assignParent(parse(src, opts))
+  var ast = parse(src, opts)
   scan.crawl(ast)
   return ast
 }

@@ -2,7 +2,6 @@
 var assert = require('assert')
 var getAssignedIdentifiers = require('get-assigned-identifiers')
 var isFunction = require('estree-is-function')
-var walk = require('estree-walk')
 var Binding = require('./binding')
 var Scope = require('./scope')
 
@@ -49,10 +48,35 @@ function visitBinding (node) {
 
 function crawl (ast) {
   assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: crawl: ast must be an ast node')
-  walk(ast, function (node) {
+  walk(ast)
+
+  function walk (node) {
     visitScope(node)
     visitBinding(node)
-  })
+
+    var keys = Object.keys(node)
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i]
+      if (k === 'parent') continue
+      if (Array.isArray(node[k])) {
+        walkArray(node[k], node)
+      }
+      if (typeof node[k] === 'object' && node[k] && typeof node[k].type === 'string') {
+        node[k].parent = node
+        walk(node[k])
+      }
+    }
+  }
+
+  function walkArray (nodes, parent) {
+    for (var i = 0; i < nodes.length; i++) {
+      if (typeof nodes[i] === 'object' && nodes[i] && typeof nodes[i].type === 'string') {
+        nodes[i].parent = parent
+        walk(nodes[i])
+      }
+    }
+  }
+
   return ast
 }
 
