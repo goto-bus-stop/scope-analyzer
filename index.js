@@ -166,6 +166,9 @@ function registerReference (node) {
   if (scope && scope.has(node.name)) {
     scope.add(node.name, node)
   }
+  if (scope && !scope.has(node.name)) {
+    scope.addUndeclared(node.name, node)
+  }
 }
 
 function isObjectKey (node) {

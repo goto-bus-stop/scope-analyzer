@@ -100,6 +100,10 @@ Get the [Binding](#binding) named `name` that is declared by this scope.
 
 Get a list of all nodes referencing the `name` binding that is declared by this scope.
 
+#### `scope.getUndeclaredNames()`
+
+Get a list of all names that were used in this scope, but not defined anywhere in the AST.
+
 #### `scope.forEach(cb(binding, name))`
 
 Loop over all bindings declared by this scope.

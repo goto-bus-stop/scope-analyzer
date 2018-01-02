@@ -128,3 +128,23 @@ test('do not count renamed imported identifiers as references', function (t) {
   t.equal(a.getReferences().length, 3, 'should not have counted renamed `a` import as a reference')
   t.equal(b.getReferences().length, 2, 'should have counted local name of renamed import')
 })
+
+test('collect references to undeclared variables', function (t) {
+  t.plan(2)
+
+  var src = `
+    var a = b
+    b = a
+    a(b)
+    function c () {
+      return d
+    }
+  `
+  var ast = crawl(src)
+
+  var root = scan.scope(ast)
+  var undeclared = Array.from(root.undeclaredBindings.keys())
+  var declared = Array.from(root.bindings.keys())
+  t.deepEqual(undeclared, ['b', 'd'])
+  t.deepEqual(declared, ['a', 'c'])
+})

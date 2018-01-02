@@ -1,7 +1,10 @@
+var Binding = require('./binding')
+
 module.exports = Scope
 
 function Scope () {
   this.bindings = new Map()
+  this.undeclaredBindings = new Map()
 }
 
 Scope.prototype.define = function (binding) {
@@ -28,12 +31,26 @@ Scope.prototype.add = function (name, ref) {
   return this
 }
 
+Scope.prototype.addUndeclared = function (name, ref) {
+  if (!this.undeclaredBindings.has(name)) {
+    this.undeclaredBindings.set(name, new Binding(name))
+  }
+
+  var binding = this.undeclaredBindings.get(name)
+  binding.add(ref)
+  return this
+}
+
 Scope.prototype.getBinding = function (name) {
   return this.bindings.get(name)
 }
 
 Scope.prototype.getReferences = function (name) {
   return this.has(name) ? this.bindings.get(name).getReferences() : []
+}
+
+Scope.prototype.getUndeclaredNames = function () {
+  return Array.from(this.undeclaredBindings.keys())
 }
 
 Scope.prototype.forEach = function () {
