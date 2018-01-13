@@ -146,7 +146,7 @@ test('remove references', function (t) {
   a.remove(reference)
   t.equal(a.getReferences().length, 2, 'should have removed the reference')
   t.ok(a.isReferenced(), 'should still be referenced')
-  var reference = ast.body[2].expression.callee
+  reference = ast.body[2].expression.callee
   a.remove(reference)
   t.equal(a.getReferences().length, 1, 'should still have the definition reference')
   t.notOk(a.isReferenced(), 'should no longer be referenced')
