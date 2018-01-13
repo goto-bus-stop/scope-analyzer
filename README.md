@@ -81,9 +81,9 @@ scopeAnalyzer.createScope(ast, ['HTMLElement', 'Notification', ...])
 
 Get the [Scope](#scope) initialised by the given node.
 
-### `getBinding(node, name)`
+### `getBinding(node)`
 
-Get the [Binding](#binding) named `name` that is available to `node`.
+Get the [Binding](#binding) referenced by the `Identifier` `node`.
 The binding must be declared in the current scope or a scope initialised by any parent node.
 
 ### Scope
@@ -117,6 +117,14 @@ The node that defined this binding.
 #### `binding.getReferences()`
 
 Return an array of nodes that reference this binding.
+
+#### `binding.isReferenced()`
+
+Check if the binding is referenced, i.e., if there are any identifier Nodes (other than `binding.definition`) referencing this binding.
+
+#### `binding.remove(node)`
+
+Remove a reference to this binding. Use this when you are replacing the node referencing the binding with something else.
 
 ## License
 

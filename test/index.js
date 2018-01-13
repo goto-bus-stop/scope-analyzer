@@ -128,6 +128,30 @@ test('do not count renamed imported identifiers as references', function (t) {
   t.equal(b.getReferences().length, 2, 'should have counted local name of renamed import')
 })
 
+test('remove references', function (t) {
+  t.plan(6)
+
+  var src = `
+    function a () {}
+    a()
+    a()
+  `
+  var ast = crawl(src)
+
+  var root = scan.scope(ast)
+  var a = root.getBinding('a')
+  t.equal(a.getReferences().length, 3, 'should have 3 references')
+  t.ok(a.isReferenced(), 'should be referenced')
+  var reference = ast.body[1].expression.callee
+  a.remove(reference)
+  t.equal(a.getReferences().length, 2, 'should have removed the reference')
+  t.ok(a.isReferenced(), 'should still be referenced')
+  var reference = ast.body[2].expression.callee
+  a.remove(reference)
+  t.equal(a.getReferences().length, 1, 'should still have the definition reference')
+  t.notOk(a.isReferenced(), 'should no longer be referenced')
+})
+
 test('collect references to undeclared variables', function (t) {
   t.plan(2)
 
