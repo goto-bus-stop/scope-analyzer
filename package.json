@@ -12,8 +12,11 @@
   },
   "devDependencies": {
     "acorn": "^5.2.1",
+    "d3": "^4.13.0",
+    "nanobench": "^2.1.0",
     "standard": "^10.0.3",
-    "tape": "^4.8.0"
+    "tape": "^4.8.0",
+    "three": "^0.89.0"
   },
   "homepage": "https://github.com/goto-bus-stop/scope-analyzer",
   "keywords": [
