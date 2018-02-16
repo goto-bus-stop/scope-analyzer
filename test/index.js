@@ -171,3 +171,27 @@ test('collect references to undeclared variables', function (t) {
   t.deepEqual(undeclared, ['b', 'd'])
   t.deepEqual(declared, ['a', 'c'])
 })
+
+test('loop over all available bindings, including declared in parent scope', function (t) {
+  t.plan(1)
+
+  var src = `
+    var a = 0
+    var b = 1, c = 2
+    function d() {
+      function e() {}
+      function f() {
+        var b = 3
+        console.log('bindings')
+      }
+    }
+  `
+
+  var ast = crawl(src)
+  var scope = scan.scope(ast.body[2].body.body[1])
+  var names = []
+  scope.forEachAvailable(function (binding, name) {
+    names.push(name)
+  })
+  t.deepEqual(names, ['b', 'e', 'f', 'a', 'c', 'd'])
+})

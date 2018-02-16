@@ -2,7 +2,8 @@ var Binding = require('./binding')
 
 module.exports = Scope
 
-function Scope () {
+function Scope (parent) {
+  this.parent = parent
   this.bindings = new Map()
   this.undeclaredBindings = new Map()
 }
@@ -55,4 +56,18 @@ Scope.prototype.getUndeclaredNames = function () {
 
 Scope.prototype.forEach = function () {
   this.bindings.forEach.apply(this.bindings, arguments)
+}
+
+Scope.prototype.forEachAvailable = function (cb) {
+  var seen = new Set()
+  this.bindings.forEach(function (binding, name) {
+    seen.add(name)
+    cb(binding, name)
+  })
+  this.parent && this.parent.forEachAvailable(function (binding, name) {
+    if (!seen.has(name)) {
+      seen.add(name)
+      cb(binding, name)
+    }
+  })
 }

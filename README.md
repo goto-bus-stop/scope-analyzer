@@ -108,6 +108,10 @@ Get a list of all names that were used in this scope, but not defined anywhere i
 
 Loop over all bindings declared by this scope.
 
+#### `scope.forEachAvailable(cb(binding, name))`
+
+Loop over all bindings available to this scope, declared in this scope or any parent scope.
+
 ### Binding
 
 #### `binding.definition`

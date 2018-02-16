@@ -20,7 +20,8 @@ exports.getBinding = getBinding
 function createScope (node, bindings) {
   assert.ok(typeof node === 'object' && node && typeof node.type === 'string', 'scope-analyzer: createScope: node must be an ast node')
   if (!node[kScope]) {
-    node[kScope] = new Scope()
+    var parent = getParentScope(node)
+    node[kScope] = new Scope(parent)
   }
   if (bindings) {
     for (var i = 0; i < bindings.length; i++) {
@@ -142,6 +143,14 @@ function registerScopeBindings (node) {
     getAssignedIdentifiers(node).forEach(function (id) {
       scope.define(new Binding(id.name, id))
     })
+  }
+}
+
+function getParentScope (node) {
+  var parent = node
+  while (parent.parent) {
+    parent = parent.parent
+    if (getScope(parent)) return getScope(parent)
   }
 }
 
