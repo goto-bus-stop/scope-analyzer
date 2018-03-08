@@ -1,6 +1,6 @@
 var Map = require('es6-map')
 var Set = require('es6-set')
-var ArrayFrom = require('array.from')
+var ArrayFrom = Array.from || require('array.from')
 var Binding = require('./binding')
 
 module.exports = Scope
