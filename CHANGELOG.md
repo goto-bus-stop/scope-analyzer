@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0 / 2018-03-08
+
+* add support for ES5 environments (Node 0.10+)
+* `scan.getBinding()` now also returns bindings for undeclared identifiers. `binding.definition` will be undefined for undeclared identifiers.
+
 ## 1.3.0 / 2018-01-13
 
 * add `binding.remove(node)` to remove a reference to a binding from the list of references. use `binding.isReferenced()` to check if there are any references left.
