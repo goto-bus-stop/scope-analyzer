@@ -1,3 +1,5 @@
+var Set = require('es6-set')
+
 module.exports = Binding
 
 function Binding (name, definition) {
