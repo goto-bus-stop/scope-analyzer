@@ -59,12 +59,11 @@ function crawl (ast) {
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i]
       if (k === 'parent') continue
-      if (Array.isArray(node[k])) {
-        walkArray(node[k], node)
-      }
       if (typeof node[k] === 'object' && node[k] && typeof node[k].type === 'string') {
         node[k].parent = node
         walk(node[k])
+      } else if (Array.isArray(node[k])) {
+        walkArray(node[k], node)
       }
     }
   }
