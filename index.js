@@ -1,5 +1,6 @@
 /* eslint-disable no-redeclare */
 var assert = require('assert')
+var Symbol = require('es6-symbol')
 var getAssignedIdentifiers = require('get-assigned-identifiers')
 var isFunction = require('estree-is-function')
 var Binding = require('./binding')

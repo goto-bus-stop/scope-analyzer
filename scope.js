@@ -1,3 +1,6 @@
+var Map = require('es6-map')
+var Set = require('es6-set')
+var ArrayFrom = require('array-from')
 var Binding = require('./binding')
 
 module.exports = Scope
@@ -51,7 +54,7 @@ Scope.prototype.getReferences = function (name) {
 }
 
 Scope.prototype.getUndeclaredNames = function () {
-  return Array.from(this.undeclaredBindings.keys())
+  return ArrayFrom(this.undeclaredBindings.keys())
 }
 
 Scope.prototype.forEach = function () {
