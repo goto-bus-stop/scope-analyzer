@@ -16,7 +16,10 @@
   },
   "devDependencies": {
     "acorn": "^5.2.1",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-es2015-template-literals": "^6.22.0",
     "d3": "^4.13.0",
+    "has-template-literals": "^1.0.0",
     "nanobench": "^2.1.0",
     "standard": "^10.0.3",
     "tape": "^4.8.0",
@@ -40,6 +43,6 @@
   },
   "scripts": {
     "bench": "nanobench bench/*.js",
-    "test": "standard && tape test/*.js"
+    "test": "standard && tape -r ./test/_init.js test/index.js"
   }
 }

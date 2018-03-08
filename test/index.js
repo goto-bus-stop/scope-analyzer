@@ -1,5 +1,6 @@
 var test = require('tape')
 var parse = require('acorn').parse
+var ArrayFrom = require('array.from')
 var scan = require('../')
 
 function crawl (src, opts) {
@@ -166,8 +167,8 @@ test('collect references to undeclared variables', function (t) {
   var ast = crawl(src)
 
   var root = scan.scope(ast)
-  var undeclared = Array.from(root.undeclaredBindings.keys())
-  var declared = Array.from(root.bindings.keys())
+  var undeclared = ArrayFrom(root.undeclaredBindings.keys())
+  var declared = ArrayFrom(root.bindings.keys())
   t.deepEqual(undeclared, ['b', 'd'])
   t.deepEqual(declared, ['a', 'c'])
 })
