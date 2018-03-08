@@ -1,6 +1,6 @@
 var test = require('tape')
 var parse = require('acorn').parse
-var ArrayFrom = Array.from || require('array.from')
+var ArrayFrom = require('array-from')
 var scan = require('../')
 
 function crawl (src, opts) {
