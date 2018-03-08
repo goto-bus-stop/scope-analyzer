@@ -95,7 +95,7 @@ function getBinding (identifier) {
   if (!scopeNode) return null
   var scope = getScope(scopeNode)
   if (!scope) return null
-  return scope.getBinding(identifier.name)
+  return scope.getBinding(identifier.name) || scope.undeclaredBindings.get(identifier.name)
 }
 
 function registerScopeBindings (node) {

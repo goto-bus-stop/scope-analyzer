@@ -84,7 +84,6 @@ Get the [Scope](#scope) initialised by the given node.
 ### `getBinding(node)`
 
 Get the [Binding](#binding) referenced by the `Identifier` `node`.
-The binding must be declared in the current scope or a scope initialised by any parent node.
 
 ### Scope
 
@@ -116,7 +115,7 @@ Loop over all bindings available to this scope, declared in this scope or any pa
 
 #### `binding.definition`
 
-The node that defined this binding.
+The node that defined this binding. If this binding was not declared in the AST, `binding.definition` will be undefined.
 
 #### `binding.getReferences()`
 
