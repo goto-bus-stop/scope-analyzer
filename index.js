@@ -100,6 +100,9 @@ function getBinding (identifier) {
 }
 
 function registerScopeBindings (node) {
+  if (node.type === 'Program') {
+    createScope(node)
+  }
   if (node.type === 'VariableDeclaration') {
     var scopeNode = getNearestScope(node, node.kind !== 'var')
     var scope = createScope(scopeNode)

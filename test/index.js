@@ -196,3 +196,17 @@ test('loop over all available bindings, including declared in parent scope', fun
   })
   t.deepEqual(names, ['b', 'e', 'f', 'a', 'c', 'd'])
 })
+
+test('always initialise a scope for the root', function (t) {
+  t.plan(2)
+
+  var src = `
+    console.log("null")
+  `
+
+  var ast = crawl(src)
+  var scope = scan.scope(ast)
+
+  t.ok(scope)
+  t.deepEqual(scope.getUndeclaredNames(), ['console'])
+})
