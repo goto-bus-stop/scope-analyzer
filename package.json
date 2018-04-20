@@ -7,7 +7,6 @@
     "url": "https://github.com/goto-bus-stop/scope-analyzer/issues"
   },
   "dependencies": {
-    "acorn": "^5.5.3",
     "array-from": "^2.1.1",
     "es6-map": "^0.1.5",
     "es6-set": "^0.1.5",
@@ -16,6 +15,7 @@
     "get-assigned-identifiers": "^1.1.0"
   },
   "devDependencies": {
+    "acorn": "^5.5.3",
     "babel-core": "^6.26.0",
     "babel-plugin-transform-es2015-template-literals": "^6.22.0",
     "d3": "^4.13.0",

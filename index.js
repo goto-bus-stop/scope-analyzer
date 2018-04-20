@@ -3,7 +3,6 @@ var assert = require('assert')
 var Symbol = require('es6-symbol')
 var getAssignedIdentifiers = require('get-assigned-identifiers')
 var isFunction = require('estree-is-function')
-var walk = require('./walk')
 var Binding = require('./binding')
 var Scope = require('./scope')
 
@@ -53,6 +52,31 @@ function crawl (ast) {
   assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: crawl: ast must be an ast node')
   walk(ast, visitScope)
   walk(ast, visitBinding)
+
+  function walk (node, cb) {
+    cb(node)
+
+    var keys = Object.keys(node)
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i]
+      if (k === 'parent') continue
+      if (typeof node[k] === 'object' && node[k] && typeof node[k].type === 'string') {
+        node[k].parent = node
+        walk(node[k], cb)
+      } else if (Array.isArray(node[k])) {
+        walkArray(node[k], node, cb)
+      }
+    }
+  }
+
+  function walkArray (nodes, parent, cb) {
+    for (var i = 0; i < nodes.length; i++) {
+      if (typeof nodes[i] === 'object' && nodes[i] && typeof nodes[i].type === 'string') {
+        nodes[i].parent = parent
+        walk(nodes[i], cb)
+      }
+    }
+  }
 
   return ast
 }
