@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.2 / 2018-04-20
+* fix valid references that occur above a value is declared in source code
+
 ## 2.0.1 / 2018-03-30
 * always initialise scope on the root node, so that undeclared names can be attached
 
