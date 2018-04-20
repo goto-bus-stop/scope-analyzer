@@ -109,6 +109,25 @@ test('references', function (t) {
   `, 'references were associated correctly')
 })
 
+test('references that are declared later', function (t) {
+  t.plan(4)
+
+  var src = `
+    if (true) { b(function () { c() }) }
+    function b () {}
+    function c () {}
+  `
+  var ast = crawl(src)
+
+  var scope = scan.scope(ast)
+  var b = scope.getBinding('b')
+  t.ok(b, 'should have a binding for function b(){}')
+  var c = scope.getBinding('c')
+  t.ok(c, 'should have a binding for function c(){}')
+  t.equal(b.getReferences().length, 2, 'should find all references for b')
+  t.equal(c.getReferences().length, 2, 'should find all references for c')
+})
+
 test('do not count renamed imported identifiers as references', function (t) {
   t.plan(2)
 
