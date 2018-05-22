@@ -128,6 +128,24 @@ test('references that are declared later', function (t) {
   t.equal(c.getReferences().length, 2, 'should find all references for c')
 })
 
+test('do not count object keys and method definitions as references', function (t) {
+  t.plan(2)
+
+  var src = `
+    var a
+    class B { a () {} }
+    class C { get a () {} }
+    class D { set a (b) {} }
+    var e = { a: null }
+  `
+  var ast = crawl(src)
+
+  var scope = scan.scope(ast)
+  var a = scope.getBinding('a')
+  t.equal(a.getReferences().length, 1)
+  t.deepEqual(a.getReferences(), [a.definition])
+})
+
 test('do not count renamed imported identifiers as references', function (t) {
   t.plan(2)
 
