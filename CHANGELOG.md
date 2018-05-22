@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.4 / 2018-05-22
+* fix class method definition names being counted as references to outer variables.
+
 ## 2.0.3 / 2018-04-20
 * revert to custom walker, acorn.walk behaviour is different and not faster
 
