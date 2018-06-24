@@ -147,6 +147,14 @@ function registerScopeBindings (node) {
       scope.define(new Binding(id.name, id))
     })
   }
+  if (node.type === 'CatchClause') {
+    var scope = createScope(node)
+    if (node.param) {
+      getAssignedIdentifiers(node.param).forEach(function (id) {
+        scope.define(new Binding(id.name, id))
+      })
+    }
+  }
 }
 
 function getParentScope (node) {

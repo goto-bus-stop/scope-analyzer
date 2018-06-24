@@ -247,3 +247,24 @@ test('always initialise a scope for the root', function (t) {
   t.ok(scope)
   t.deepEqual(scope.getUndeclaredNames(), ['console'])
 })
+
+test('initialises a scope for catch clauses', function (t) {
+  t.plan(5)
+  var ast = crawl(`
+    var a = null
+    a = 1
+    try {
+    } catch (a) {
+      a = 2
+    }
+  `)
+
+  var scope = scan.scope(ast)
+  t.ok(scope.has('a'), 'should find var')
+  t.equal(scope.getBinding('a').getReferences().length, 2, 'only counts references to outer `a`')
+  var clause = ast.body[2].handler
+  var catchScope = scan.scope(clause)
+  t.ok(catchScope.has('a'), 'should find param')
+  t.notEqual(scope.getBinding('a'), catchScope.getBinding('a'), 'introduced a different binding')
+  t.equal(catchScope.getBinding('a').getReferences().length, 2, 'only counts references to inner `a`')
+})
