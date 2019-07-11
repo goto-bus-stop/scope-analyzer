@@ -89,8 +89,8 @@ function getScope (node) {
 }
 
 function getBinding (identifier) {
-  assert.equal(typeof identifier, 'object', 'scope-analyzer: getBinding: identifier must be a node')
-  assert.equal(identifier.type, 'Identifier', 'scope-analyzer: getBinding: identifier must be an Identifier node')
+  assert.strictEqual(typeof identifier, 'object', 'scope-analyzer: getBinding: identifier must be a node')
+  assert.strictEqual(identifier.type, 'Identifier', 'scope-analyzer: getBinding: identifier must be an Identifier node')
 
   var scopeNode = getDeclaredScope(identifier)
   if (!scopeNode) return null
