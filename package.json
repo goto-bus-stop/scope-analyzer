@@ -15,14 +15,14 @@
     "get-assigned-identifiers": "^1.1.0"
   },
   "devDependencies": {
-    "acorn": "^5.5.3",
-    "babel-core": "^6.26.0",
+    "acorn": "^6.2.0",
+    "babel-core": "^6.26.3",
     "babel-plugin-transform-es2015-template-literals": "^6.22.0",
     "d3": "^4.13.0",
     "has-template-literals": "^1.0.0",
-    "nanobench": "^2.1.0",
-    "standard": "^10.0.3",
-    "tape": "^4.8.0",
+    "nanobench": "^2.1.1",
+    "standard": "^13.0.0",
+    "tape": "^4.11.0",
     "three": "^0.89.0"
   },
   "homepage": "https://github.com/goto-bus-stop/scope-analyzer",
