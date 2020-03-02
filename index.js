@@ -43,8 +43,6 @@ function visitBinding (node) {
   assert.ok(typeof node === 'object' && node && typeof node.type === 'string', 'scope-analyzer: visitBinding: node must be an ast node')
   if (isVariable(node)) {
     registerReference(node)
-  } else if (isShorthandProperty(node)) {
-    registerReference(node)
   }
 }
 
@@ -218,18 +216,11 @@ function registerReference (node) {
 function isObjectKey (node) {
   return node.parent.type === 'Property' && node.parent.key === node
 }
-function isObjectValue (node) {
-  return node.parent.type === 'Property' && node.parent.value === node
-}
 function isMethodDefinition (node) {
   return node.parent.type === 'MethodDefinition' && node.parent.key === node
 }
 function isImportName (node) {
   return node.parent.type === 'ImportSpecifier' && node.parent.imported === node
-}
-
-function isShorthandProperty (node) {
-  return node.type === 'Identifier' && isObjectValue(node) && node.parent.shorthand
 }
 
 function isVariable (node) {
