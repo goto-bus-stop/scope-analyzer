@@ -218,6 +218,9 @@ function registerReference (node) {
 function isObjectKey (node) {
   return node.parent.type === 'Property' && node.parent.key === node
 }
+function isObjectValue (node) {
+  return node.parent.type === 'Property' && node.parent.value === node
+}
 function isMethodDefinition (node) {
   return node.parent.type === 'MethodDefinition' && node.parent.key === node
 }
@@ -226,7 +229,7 @@ function isImportName (node) {
 }
 
 function isShorthandProperty (node) {
-  return node.type === 'Identifier' && isObjectKey(node) && node.parent.shorthand
+  return node.type === 'Identifier' && isObjectValue(node) && node.parent.shorthand
 }
 
 function isVariable (node) {

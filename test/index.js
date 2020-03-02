@@ -9,6 +9,15 @@ function crawl (src, opts) {
   return ast
 }
 
+function cloneNode (node) {
+  var cloned = {}
+  var keys = Object.keys(node)
+  for (var i = 0; i < keys.length; i++) {
+    cloned[keys[i]] = node[keys[i]]
+  }
+  return cloned
+}
+
 test('register variable declarations in scope', function (t) {
   t.plan(5)
   var ast = crawl('var a, b; const c = 0; let d')
@@ -41,6 +50,34 @@ test('register non variable declarations (function, class, parameter)', function
   scope = scan.scope(ast.body[0]) // function declaration
   t.ok(scope.has('a'), 'should find shadowed parameter')
   t.ok(scope.has('b'), 'should find parameter')
+})
+
+test('use the value portion of a shorthand declaration property', function (t) {
+  t.plan(2)
+
+  var ast = parse('const { x } = y')
+  var property = ast.body[0].declarations[0].id.properties[0]
+  property.key = cloneNode(property.value)
+  scan.crawl(ast)
+
+  var binding = scan.scope(ast).getBinding('x')
+
+  t.ok(binding.references.has(property.value))
+  t.notOk(binding.references.has(property.key))
+})
+
+test('use the value portion of a shorthand object property', function (t) {
+  t.plan(2)
+
+  var ast = parse('({ x })')
+  var property = ast.body[0].expression.properties[0]
+  property.key = cloneNode(property.value)
+  scan.crawl(ast)
+
+  var binding = scan.scope(ast).undeclaredBindings.get('x')
+
+  t.ok(binding.references.has(property.value))
+  t.notOk(binding.references.has(property.key))
 })
 
 test('shadowing', function (t) {
