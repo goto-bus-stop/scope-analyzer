@@ -165,6 +165,27 @@ test('references that are declared later', function (t) {
   t.equal(c.getReferences().length, 2, 'should find all references for c')
 })
 
+test('shorthand properties', function (t) {
+  t.plan(3)
+
+  var src = `
+    var b = 1
+    var a = { b }
+    var { c } = a
+    console.log({ c, b, a })
+  `
+  var ast = crawl(src)
+  var body = ast.body
+
+  var scope = scan.scope(ast)
+  var a = scope.getBinding('a')
+  var b = scope.getBinding('b')
+  var c = scope.getBinding('c')
+  t.deepEqual(a.getReferences(), [a.definition, body[2].declarations[0].init, body[3].expression.arguments[0].properties[2].value])
+  t.deepEqual(b.getReferences(), [b.definition, body[1].declarations[0].init.properties[0].value, body[3].expression.arguments[0].properties[1].value])
+  t.deepEqual(c.getReferences(), [c.definition, body[3].expression.arguments[0].properties[0].value])
+})
+
 test('do not count object keys and method definitions as references', function (t) {
   t.plan(2)
 
