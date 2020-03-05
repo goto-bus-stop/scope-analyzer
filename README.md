@@ -38,7 +38,7 @@ var scan = require('scope-analyzer')
 var ast = parse('...')
 // Initialize node module variables
 scan.createScope(ast, ['module', 'exports', '__dirname', '__filename'])
-scan.analyze(ast)
+scan.crawl(ast)
 
 var binding = scan.getBinding(ast, 'exports')
 binding.getReferences().forEach(function (reference) {
