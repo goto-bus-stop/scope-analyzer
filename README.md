@@ -54,6 +54,10 @@ binding.getReferences().forEach(function (reference) {
 
 Walk the ast and analyze all scopes. This will immediately allow you to use the `get*` methods on any node in the tree.
 
+### `clear(ast)`
+
+Clear scope information in all nodes of the AST.
+
 ### `visitScope(node)`
 
 Visit a node to check if it initialises any scopes.
@@ -76,6 +80,10 @@ In that case, call `createScope` on the root node with the names of globals:
 var ast = parse('xyz')
 scopeAnalyzer.createScope(ast, ['HTMLElement', 'Notification', ...])
 ```
+
+### `deleteScope(node)`
+
+Delete the scope initialised by node.
 
 ### `scope(node)`
 

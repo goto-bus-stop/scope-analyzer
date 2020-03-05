@@ -326,3 +326,42 @@ test('initialises a scope for catch clauses', function (t) {
   t.notEqual(scope.getBinding('a'), catchScope.getBinding('a'), 'introduced a different binding')
   t.equal(catchScope.getBinding('a').getReferences().length, 2, 'only counts references to inner `a`')
 })
+
+test('clear all scope information', function (t) {
+  t.plan(6)
+
+  var ast = crawl(`
+    function x() {
+      var y = z
+    }
+    var z = x
+  `)
+
+  var fn = ast.body[0]
+
+  t.ok(scan.scope(ast))
+  t.ok(scan.scope(fn))
+  t.ok(scan.getBinding(fn.id))
+
+  scan.clear(ast)
+
+  t.notOk(scan.scope(ast))
+  t.notOk(scan.scope(fn))
+  t.notOk(scan.getBinding(fn.id))
+})
+
+test('clear partial scope information', function (t) {
+  t.plan(4)
+
+  var ast = crawl('function x() {}')
+
+  var fn = ast.body[0]
+
+  t.ok(scan.scope(fn))
+  t.ok(scan.getBinding(fn.id))
+
+  scan.deleteScope(fn)
+
+  t.notOk(scan.scope(fn))
+  t.ok(scan.getBinding(fn.id))
+})
