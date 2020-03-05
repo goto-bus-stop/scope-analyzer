@@ -214,7 +214,11 @@ function registerReference (node) {
 }
 
 function isObjectKey (node) {
-  return node.parent.type === 'Property' && node.parent.key === node
+  return node.parent.type === 'Property' &&
+    node.parent.key === node &&
+    // a shorthand property may have the ===-same node as both the key and the value.
+    // we should detect the value part.
+    node.parent.value !== node
 }
 function isMethodDefinition (node) {
   return node.parent.type === 'MethodDefinition' && node.parent.key === node
