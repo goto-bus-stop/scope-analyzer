@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.6 / 2020-03-05
+* detect the `.value` part of a shorthand property as the variable reference, instead of the `.key` part.
+
+This is a bugfix only for ASTs that were already modified prior to being crawled with scope-analyzer. Thanks @fabiosantoscode!
+
 ## 2.0.5 / 2018-06-25
 * detect `catch(param){}` bindings
 
