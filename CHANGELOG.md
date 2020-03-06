@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0 / 2020-03-06
+* add `deleteScope()` and `clear()` methods to delete scope information from a single node or an entire tree. Thanks @fabiosantoscode!
+
 ## 2.0.6 / 2020-03-05
 * detect the `.value` part of a shorthand property as the variable reference, instead of the `.key` part.
 
