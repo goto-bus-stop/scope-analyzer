@@ -1,7 +1,7 @@
 {
   "name": "scope-analyzer",
   "description": "simple scope analysis for javascript ASTs",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "Renée Kooi <renee@kooi.me>",
   "bugs": {
     "url": "https://github.com/goto-bus-stop/scope-analyzer/issues"
