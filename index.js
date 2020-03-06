@@ -82,7 +82,7 @@ function crawl (ast) {
 }
 
 function clear (ast) {
-  assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: crawl: ast must be an ast node')
+  assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: clear: ast must be an ast node')
   walk(ast, deleteScope)
 }
 
