@@ -23,6 +23,10 @@ exports.getBinding = getBinding
 // create a new scope at a node.
 function createScope (node, bindings) {
   assert.ok(typeof node === 'object' && node && typeof node.type === 'string', 'scope-analyzer: createScope: node must be an ast node')
+  const parentNode = node.parent
+  if (!node.id && parentNode && parentNode.type === 'Property') {
+    node.id = parentNode.key
+  }
   if (!node[kScope]) {
     var parent = getParentScope(node)
     node[kScope] = new Scope(parent)
