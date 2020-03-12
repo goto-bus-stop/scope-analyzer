@@ -124,7 +124,7 @@ function registerScopeBindings (node) {
       })
     })
   }
-  if (node.type === 'FunctionExpression' || node.type === 'ClassExpression') {
+  if (node.type === 'ArrowFunctionExpression' || node.type === 'FunctionExpression' || node.type === 'ClassExpression') {
     var scope = createScope(node)
     if (node.id && node.id.type === 'Identifier') {
       scope.define(new Binding(node.id.name, node.id))
