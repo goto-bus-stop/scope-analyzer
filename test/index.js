@@ -165,6 +165,52 @@ test('references that are declared later', function (t) {
   t.equal(c.getReferences().length, 2, 'should find all references for c')
 })
 
+test.only('arrow functions create scope', function (t) {
+  t.plan(13)
+
+  var src = `
+    var a = 1
+    let b = 2
+    const c = 3
+    ;(() => {
+      var d = 4
+      let e = b
+      const f = a + c
+    })()
+  `
+  var ast = crawl(src)
+
+  var scope = scan.scope(ast)
+
+  var a = scope.getBinding('a')
+  var b = scope.getBinding('b')
+  var c = scope.getBinding('c')
+  t.ok(a, 'root node should have a binding for var a')
+  t.ok(b, 'root node should have a binding for let b')
+  t.ok(c, 'root node should have a binding for const c')
+
+  var d = scope.getBinding('d')
+  var e = scope.getBinding('e')
+  var f = scope.getBinding('f')
+  t.notOk(d, 'should not have a binding for var d')
+  t.notOk(e, 'should not have a binding for let e')
+  t.notOk(f, 'should not have a binding for const f')
+
+  t.equal(a.getReferences().length, 2, 'should find all references for a')
+  t.equal(b.getReferences().length, 2, 'should find all references for b')
+  t.equal(c.getReferences().length, 2, 'should find all references for c')
+
+  var functionScope = scan.scope(ast.body[3].expression.callee)
+  t.ok(functionScope, 'should have introduced a new scope')
+  d = functionScope.getBinding('d')
+  e = functionScope.getBinding('e')
+  f = functionScope.getBinding('f')
+
+  t.ok(d, 'should have a binding for var d')
+  t.ok(e, 'should have a binding for let e')
+  t.ok(f, 'should have a binding for const f')
+})
+
 test('shorthand properties', function (t) {
   t.plan(3)
 
