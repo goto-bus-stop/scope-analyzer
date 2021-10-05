@@ -19,7 +19,7 @@
     "acorn": "^8.0.1",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-es2015-template-literals": "^6.22.0",
-    "d3": "^4.13.0",
+    "d3": "^7.1.1",
     "has-template-literals": "^1.0.0",
     "nanobench": "^2.1.1",
     "standard": "^14.3.1",
