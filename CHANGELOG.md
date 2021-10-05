@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.2 / 2021-10-05
+* make `.parent` and `[kScope]` properties non-enumerable, fixing compatibility with `recast`. anecdotally a 20-30% performance regression.
+
+  you can pin to 2.1.1 if you need the 20% and don't need safe traversal of node properties.
+
 ## 2.1.1 / 2020-03-06
 * use `dash-ast` for faster tree walking. anecdotally results in a 10-20% analysis speedup.
 
