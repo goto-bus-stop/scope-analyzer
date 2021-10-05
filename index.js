@@ -20,12 +20,21 @@ exports.nearestScope = getNearestScope
 exports.scope = getScope
 exports.getBinding = getBinding
 
+function set (object, property, value) {
+  Object.defineProperty(object, property, {
+    value: value,
+    enumerable: false,
+    configurable: true,
+    writable: true
+  })
+}
+
 // create a new scope at a node.
 function createScope (node, bindings) {
   assert.ok(typeof node === 'object' && node && typeof node.type === 'string', 'scope-analyzer: createScope: node must be an ast node')
   if (!node[kScope]) {
     var parent = getParentScope(node)
-    node[kScope] = new Scope(parent)
+    set(node, kScope, new Scope(parent))
   }
   if (bindings) {
     for (var i = 0; i < bindings.length; i++) {
@@ -52,7 +61,7 @@ function visitBinding (node) {
 function crawl (ast) {
   assert.ok(typeof ast === 'object' && ast && typeof ast.type === 'string', 'scope-analyzer: crawl: ast must be an ast node')
   dash(ast, function (node, parent) {
-    node.parent = parent
+    set(node, 'parent', parent)
     visitScope(node)
   })
   dash(ast, visitBinding)

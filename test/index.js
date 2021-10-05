@@ -1,5 +1,6 @@
 var test = require('tape')
 var parse = require('acorn').parse
+var recast = require('recast')
 var ArrayFrom = require('array-from')
 var scan = require('../')
 
@@ -364,4 +365,14 @@ test('clear partial scope information', function (t) {
 
   t.notOk(scan.scope(fn))
   t.ok(scan.getBinding(fn.id))
+})
+
+test('recast: does not touch all nodes', function (t) {
+  t.plan(1)
+
+  var input = 'function *weirdly(){   const formatted =0; }'
+  var ast = recast.parse(input)
+  scan.analyze(ast)
+  var output = recast.print(ast).code
+  t.equal(input, output)
 })
