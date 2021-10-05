@@ -44,6 +44,8 @@
   },
   "scripts": {
     "bench": "nanobench bench/*.js",
-    "test": "standard && tape -r ./test/_init.js test/index.js"
+    "lint": "standard",
+    "tests-only": "node -r ./test/_init.js test/index.js",
+    "test": "npm run lint && npm run tests-only"
   }
 }
