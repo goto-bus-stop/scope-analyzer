@@ -23,7 +23,7 @@
     "has-template-literals": "^1.0.0",
     "nanobench": "^2.1.1",
     "recast": "^0.20.5",
-    "standard": "^16.0.4",
+    "standard": "^17.0.0",
     "tape": "^5.0.1",
     "three": "^0.89.0"
   },
