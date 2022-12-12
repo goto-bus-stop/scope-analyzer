@@ -22,7 +22,7 @@
     "d3": "^4.13.0",
     "has-template-literals": "^1.0.0",
     "nanobench": "^2.1.1",
-    "recast": "^0.20.5",
+    "recast": "^0.22.0",
     "standard": "^16.0.4",
     "tape": "^5.0.1",
     "three": "^0.89.0"
